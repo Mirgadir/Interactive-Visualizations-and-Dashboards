@@ -1,0 +1,27 @@
+{
+  "name": "interactive-visualizations-and-dashboards-challenge",
+  "version": "1.0.0",
+  "description": "host app to heroku",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "12.18.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mirgadir/Interactive-Visualizations-and-Dashboards-Challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mirgadir/Interactive-Visualizations-and-Dashboards-Challenge/issues"
+  },
+  "homepage": "https://github.com/Mirgadir/Interactive-Visualizations-and-Dashboards-Challenge#readme"
+}

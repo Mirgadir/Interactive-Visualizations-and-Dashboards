@@ -1,15 +1,17 @@
+// Application retrives data from json file and creates plots with plotly.js
+//==========================================================================
 (async function(){
   var data = await d3.json("/data/samples.json").catch(function(error) {
     console.log(error);
   });
-  
+  // create variables from data
+  //===========================
   var names = data.names;
   //console.log(names);
   
   var metadata = data.metadata;
   //console.log(metadata);
   
-
   var samples = data.samples;
   
   var sample_values = samples.map(data => data.sample_values);
@@ -18,6 +20,9 @@
   //console.log(otu_ids);
   var otu_labels = samples.map(data => data.otu_labels);
   //console.log(otu_labels);
+  
+  // create a bubble plot on main page with first item in the array
+  //==============================================================
   var samples_list = samples[0].sample_values.slice(0,10);
   samples_rev = samples_list.reverse();
   var ids_list = samples[0].otu_ids.slice(0,10);
@@ -45,7 +50,8 @@
   
   Plotly.newPlot('bubble', data, layout);
   
-  
+  // create a gauge plot on main page with first item in the array
+  //=============================================================
   var data = [
     {
       domain: { x: [0, 1], y: [0, 1] },
@@ -74,10 +80,11 @@
     }
   ];
   
-  var layout = { width: 525, height: 400 };
+  var layout = { width: 500, height: 350 };
   Plotly.newPlot('gauge', data, layout);
 
-  
+  // create a bar plot on main page with first item in the array
+  //============================================================
   var data = [{
     type: 'bar',
     x: samples_rev,
@@ -87,6 +94,9 @@
   }]
   
   Plotly.newPlot("bar", data);
+
+  // fill panel on the main page with the first data from metadata object
+  //=====================================================================
   var sampleData = d3.select("#sample-metadata");
   for (const [key, value] of Object.entries(metadata[0])) {
     var p=sampleData.append("p")
@@ -94,7 +104,8 @@
       .text(`${key}: ${value}`);
   }
 
-  
+  // create selector to select ID for the next plots and fill all selections from names array
+  //=========================================================================================
   var selector = d3.selectAll("#selDataset");
   for (var i=0; i<names.length; i++){
     selector.append("option")
@@ -102,10 +113,12 @@
       .text(names[i]);
   }
   
-  //console.log(option);
+  // create function to run on ID change
+  //====================================
   selector.on("change", optionChanged)
   
   function optionChanged(){
+    //ID selector
     var option = selector.node().value;
     var remOld = d3.selectAll("#metadata").remove();
     for (var i=0; i<metadata.length; i++){
@@ -115,9 +128,9 @@
             .attr("id", "metadata")
             .text(`${key}: ${value}`);
         }
-
-
-
+      //=============================
+      
+        // buble plot
         var trace1 = {
           x: samples[i].otu_ids,
           y: samples[i].sample_values,
@@ -136,7 +149,9 @@
         };
         
         Plotly.newPlot('bubble', data, layout);
+        //=====================================
 
+        // bar chart
         var samples_list = samples[i].sample_values.slice(0,10);
         samples_rev = samples_list.reverse();
         var ids_list = samples[i].otu_ids.slice(0,10);
@@ -154,7 +169,9 @@
         }]
         
         Plotly.newPlot("bar", data);
+        //====================================
 
+        // gauge plot
         var data = [
           {
             domain: { x: [0, 1], y: [0, 1] },
@@ -183,79 +200,12 @@
           }
         ];
         
-        var layout = { width: 525, height: 400 };
+        var layout = { width: 500, height: 350 };
         Plotly.newPlot('gauge', data, layout);
+        //====================================
 
       }
     }
   }
-  
-
-
-
-
-
-
-
-  
-  
 
 }) ()
-
-
-
-
-
-
-
-
-
-
-
-
-  // var selector = d3.select("#selDataset");
-  // for (var i=0; i<names.length; i++){
-  //   selector.append("option")
-  //     .attr("value", names[i])
-  //     .text(names[i]);
-  // }
-  // var option = d3.select("option").attr("value")
-  // //console.log(option);
-  // option.on("change", optionChanged)
-
-  // function optionChanged(){
-  //   var sampleData = d3.select("#sample-metadata");
-  //   for (var i=0; i<metadata.length; i++){
-  //     if (parseInt(option) == metadata[i].id){
-  //       var ul = d3.selectAll("ul").remove();
-  //       sampleData.append("ul")
-  //         .attr("id", "metadata");
-  //       var list = d3.select("#metadata");
-  //       list.append("li")
-  //        .text(metadata[i].id)
-  //     }else {console.log("smth wrong")}
-  //   }
-  // }
-
-
-
-  //Plotly.newPlot("plot", data, layout);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
