@@ -1,5 +1,7 @@
 # Plot.ly - Belly Button Biodiversity
 
+Open [link](https://mirgadir.github.io/Interactive-Visualizations-and-Dashboards-Challenge/) to see solution.
+
 ![Bacteria by filterforge.com](Images/bacteria.jpg)
 
 In this assignment, you will build an interactive dashboard to explore the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which catalogs the microbes that colonize human navels.
