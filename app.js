@@ -1,7 +1,7 @@
 // Application retrives data from json file and creates plots with plotly.js
 //==========================================================================
 (async function(){
-  var data = await d3.json("/data/samples.json").catch(function(error) {
+  var data = await d3.json("samples.json").catch(function(error) {
     console.log(error);
   });
   // create variables from data
